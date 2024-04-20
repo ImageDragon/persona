@@ -1,0 +1,73 @@
+从 1−n 这 n 个整数排成一排并打乱次序，按字典序输出所有可能的选择方案。
+https://oj.haizeix.com/problem/237
+
+#include<algorithm>
+#include <iostream>
+#include  <cstdlib>
+#include  <cstring>
+#include   <string>
+#include   <vector>
+#include   <cstdio>
+#include    <queue>
+#include    <stack>
+#include    <ctime>
+#include    <cmath>
+#include      <map>
+#include      <set>
+#define ll long long
+#define INF 0x3f3f3f3f
+#define db1(x) cout<<#x<<"="<<(x)<<endl
+#define db2(x,y) cout<<#x<<"="<<(x)<<", "<<#y<<"="<<(y)<<endl
+#define db3(x,y,z) cout<<#x<<"="<<(x)<<", "<<#y<<"="<<(y)<<", "<<#z<<"="<<(z)<<endl
+#define db4(x,y,z,a) cout<<#x<<"="<<(x)<<", "<<#y<<"="<<(y)<<", "<<#z<<"="<<(z)<<", "<<#a<<"="<<(a)<<endl
+#define NUMBER_OF_THREADS   10
+using namespace std;
+
+int ans[15],num[10];
+
+void solve(int x,int n)
+{
+    if(x==n)
+    {
+        for(int i=0;i<x;++i)
+            if(!i)printf("%d",ans[i]);
+            else printf(" %d",ans[i]);
+        printf("\n");
+        num[ans[n-1]]=0;
+        return;
+    }
+
+    for(int i=1;i<=n;++i)
+    {
+        if(!num[i])
+        {
+            ans[x]=i,num[i]=1;
+            solve(x+1,n);
+            num[i]=0;
+        }
+    }
+}
+
+int main(void)
+{
+    #ifdef test
+    freopen("in.txt","r",stdin);
+//    freopen("out.txt","w",stdout);
+    clock_t start=clock();
+    #endif //test
+
+    int n;
+    while(~scanf("%d",&n))
+    {
+        solve(0,n);
+    }
+
+    #ifdef test
+    clock_t end=clock();
+    double endtime=(double)(end-start)/CLOCKS_PER_SEC;
+    printf("\n\n\n\n\n");
+    cout<<"Total time:"<<endtime<<"s"<<endl;        //s为单位
+    cout<<"Total time:"<<endtime*1000<<"ms"<<endl;    //ms为单位
+    #endif //test
+    return 0;
+}
