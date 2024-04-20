@@ -1,0 +1,69 @@
+从 1−n 这 n 个整数中随机选取 m 个，每种方案里的数从小到大排列，按字典序输出所有可能的选择方案。
+https://oj.haizeix.com/problem/236
+
+#include<algorithm>
+#include <iostream>
+#include  <cstdlib>
+#include  <cstring>
+#include   <string>
+#include   <vector>
+#include   <cstdio>
+#include    <queue>
+#include    <stack>
+#include    <ctime>
+#include    <cmath>
+#include      <map>
+#include      <set>
+#define ll long long
+#define INF 0x3f3f3f3f
+#define db1(x) cout<<#x<<"="<<(x)<<endl
+#define db2(x,y) cout<<#x<<"="<<(x)<<", "<<#y<<"="<<(y)<<endl
+#define db3(x,y,z) cout<<#x<<"="<<(x)<<", "<<#y<<"="<<(y)<<", "<<#z<<"="<<(z)<<endl
+#define db4(x,y,z,a) cout<<#x<<"="<<(x)<<", "<<#y<<"="<<(y)<<", "<<#z<<"="<<(z)<<", "<<#a<<"="<<(a)<<endl
+#define NUMBER_OF_THREADS   10
+using namespace std;
+
+int ans[15];
+
+void solve(int i,int j,int n,int m)
+{
+//    db4(i,j,n,m);
+    if(j==m)
+    {
+        for(int k=0;k<j;++k)
+            if(!k)printf("%d",ans[k]);
+            else printf(" %d",ans[k]);
+        printf("\n");
+        return;
+    }
+    for(;i<=n;++i)
+    {
+        ans[j]=i;
+//            db3(i,j,ans[j]);
+        solve(i+1,j+1,n,m);
+    }
+}
+
+int main(void)
+{
+    #ifdef test
+    freopen("in.txt","r",stdin);
+//    freopen("out.txt","w",stdout);
+    clock_t start=clock();
+    #endif //test
+
+    int n,m;
+    while(~scanf("%d%d",&n,&m))
+    {
+        solve(1,0,n,m);
+    }
+
+    #ifdef test
+    clock_t end=clock();
+    double endtime=(double)(end-start)/CLOCKS_PER_SEC;
+    printf("\n\n\n\n\n");
+    cout<<"Total time:"<<endtime<<"s"<<endl;        //s为单位
+    cout<<"Total time:"<<endtime*1000<<"ms"<<endl;    //ms为单位
+    #endif //test
+    return 0;
+}
